@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import ChatBot from './react-simple-chatbot';
 import Carousel from 'nuka-carousel';
+import { withRouter } from 'react-router-dom';
 
 const theme = {
   background: '#f5f8fb',
@@ -22,20 +23,24 @@ function ImgBubble(props) {
   );
 }
 
-export default function Chatbot() {
-  return (
-    <ThemeProvider theme={theme}>
-    <ChatBot
-    botAvatar='/Logo.jpg'
-    botDelay={800} userDelay={800} customDelay={800}
-    hideUserAvatar={true} hideBotAvatar={false}
-    customStyle={{
-      color: theme.botFontColor,
-      borderRadius: '18px',
-    }}
-    steps={steps} handleEnd={({ steps, values }) => {
-    }} />
-</ThemeProvider>);
+class Chatbot extends Component {
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+      <ChatBot
+        contentStyle={{ height: 500 }}
+        botAvatar='/Logo.jpg'
+        botDelay={800} userDelay={800} customDelay={800}
+        hideUserAvatar={true} hideBotAvatar={false}
+        customStyle={{
+          color: theme.botFontColor,
+          borderRadius: '18px',
+        }}
+        handleEnd={e => this.props.history && this.props.history.push('/datasheet')}
+        steps={steps} />
+      </ThemeProvider>
+    );
+  }
 }
 
 /*
@@ -79,7 +84,7 @@ const steps = [
   },
   {
     id: 'scan_result',
-    component: <img src="http://www.marceldeiss.com/159-229-home/rotenberg-2007.jpg" />,
+    component: <img src="/image/rotenberg-2007.jpg" />,
     trigger: 'scan_result_text',
   },
   {
@@ -191,13 +196,19 @@ const steps = [
   {
     id: 'type_image',
     component: <ImgBubble src="/image/calcaire.jpg" />,
-    trigger: 'end',
+    trigger: 'end_action',
+  },
+  {
+    id: 'end_action',
+    options: [
+      { value: 'end', label: 'Accéder à la fiche du vin', trigger: 'end'},
+    ],
   },
   {
     id: 'end',
-    options: [
-      { value: 'end', label: 'Accéder à la fiche du vin', trigger: null},
-    ],
+    message: 'Recherche de la fiche...',
     end: true,
   }
 ];
+
+export default withRouter(Chatbot);
