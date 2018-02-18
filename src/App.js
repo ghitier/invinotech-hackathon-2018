@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from'./Header';
+import WineCard from'./WineCard';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Chatbot from './Chatbot';
 
@@ -12,8 +12,8 @@ class App extends Component {
     return (
       <MuiThemeProvider>
 	    <div className="App">
-	    <Header />
-	    <Chatbot />
+        <WineCard />
+        <Chatbot />
 	    </div>
       </MuiThemeProvider>
     );

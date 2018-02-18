@@ -18,7 +18,7 @@ const theme = {
 function ImgBubble(props) {
   return (
     <img style={{ width: '100%', height: '100%' }}
-      src="https://wallpaperlayer.com/img/2015/10/warm-sunshine-wallpaper-7492-7782-hd-wallpapers.jpg" />
+      src={props.src} />
   );
 }
 
@@ -179,13 +179,25 @@ const steps = [
   {
     id: 'mouth_length_options',
     options: [
-      { value: 'short', label: 'Court', trigger: 'end'},
-      { value: 'long', label: 'Long', trigger: 'end'},
+      { value: 'short', label: 'Court', trigger: 'type'},
+      { value: 'long', label: 'Long', trigger: 'type'},
     ],
   },
   {
+    id: 'type',
+    message: 'D\'après votre dégustation ce vin serait issu d\'un terroir de type calcaire',
+    trigger: 'type_image',
+  },
+  {
+    id: 'type_image',
+    component: <ImgBubble src="/image/calcaire.jpg" />,
+    trigger: 'end',
+  },
+  {
     id: 'end',
-    message: 'Fin de la dégustation',
+    options: [
+      { value: 'end', label: 'Accéder à la fiche du vin', trigger: null},
+    ],
     end: true,
   }
 ];
