@@ -53,10 +53,12 @@ export default function Chatbot() {
 class Shapes extends React.Component {
   render () {
     return (
-    <Carousel cellAlign='center' dragging={true} swiping={true}>
-        <img style={{width: '100%', height: '100%'}} src="https://cdn.pixabay.com/photo/2013/03/14/21/31/icicle-93727_1280.jpg"/>
-      <img src="http://www4.ac-nancy-metz.fr/base-geol/203/klang_gypse.jpg"/>
-      <img src="https://dailygeekshow.com/wp-content/uploads/2016/05/Volcan-1.jpg"/>
+    <Carousel initialSlideHeight="200px"
+      ref={(r) => { this.carousel = r; }}
+      cellAlign='center' dragging={true} swiping={true}>
+      <img onLoad={() => this.forceUpdate()} src="/image/vertical.jpg" />
+      <img onLoad={() => this.forceUpdate()} src="/image/horizontal.jpg" />
+      <img onLoad={() => this.forceUpdate()} src="/image/volcano.jpg" />
     </Carousel>
   );
   }
@@ -66,11 +68,6 @@ const steps = [
   {
     id: 'intro',
     message: 'Le terroir introduit une solution différente dans les vins en fonction du sol. Nous allons vous aider à devenir la texture et l\'architecture du vin',
-    trigger: 'shapes',
-  },
-  {
-    id: 'shapes',
-    component: <Shapes />,
     trigger: 'scan',
   },
   {
